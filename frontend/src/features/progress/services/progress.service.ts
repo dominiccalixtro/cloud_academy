@@ -1,9 +1,17 @@
 import { curriculum } from "../../bootcamp/data/curriculum";
 
-const STORAGE_KEY = "cloud-academy-progress";
+import {
+  addActivity,
+} from "../../dashboard/services/activity.service";
+
+
+const STORAGE_KEY =
+  "cloud-academy-progress";
+
 
 function getStoredLessons(): string[] {
-  const data = localStorage.getItem(STORAGE_KEY);
+  const data =
+    localStorage.getItem(STORAGE_KEY);
 
   if (!data) {
     return [];
@@ -12,50 +20,86 @@ function getStoredLessons(): string[] {
   return JSON.parse(data);
 }
 
-function saveLessons(lessons: string[]) {
+
+function saveLessons(
+  lessons: string[]
+) {
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(lessons)
   );
 }
 
+
 export function getCompletedLessons() {
   return getStoredLessons();
 }
 
-export function isLessonCompleted(id: string) {
+
+export function isLessonCompleted(
+  id: string
+) {
   return getStoredLessons().includes(id);
 }
 
-export function toggleLessonCompletion(id: string) {
-  const completed = getStoredLessons();
+
+export function toggleLessonCompletion(
+  id: string
+) {
+  const completed =
+    getStoredLessons();
+
 
   if (completed.includes(id)) {
+
     saveLessons(
       completed.filter(
-        (lessonId) => lessonId !== id
+        (lessonId) =>
+          lessonId !== id
       )
     );
+
   } else {
+
     completed.push(id);
 
     saveLessons(completed);
+
+
+    addActivity({
+      type: "lesson_complete",
+      title:
+        "Lesson Completed",
+      description:
+        `Completed lesson ${id}`,
+    });
+
   }
 }
 
+
 export function clearProgress() {
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
 }
 
-export function getProgress() {
-  const lessons = curriculum.flatMap(
-    (module) => module.lessons
-  );
 
-  const total = lessons.length;
+export function getProgress() {
+  const lessons =
+    curriculum.flatMap(
+      (module) =>
+        module.lessons
+    );
+
+
+  const total =
+    lessons.length;
+
 
   const completed =
     getCompletedLessons().length;
+
 
   return {
     total,
@@ -69,23 +113,34 @@ export function getProgress() {
   };
 }
 
-export function getLessonStatus(id: string) {
+
+export function getLessonStatus(
+  id: string
+) {
   return isLessonCompleted(id)
     ? "completed"
     : "available";
 }
 
-export function getNextLesson() {
-  const lessons = curriculum.flatMap(
-    (module) => module.lessons
-  );
 
-  const completed = getCompletedLessons();
+export function getNextLesson() {
+  const lessons =
+    curriculum.flatMap(
+      (module) =>
+        module.lessons
+    );
+
+
+  const completed =
+    getCompletedLessons();
+
 
   return (
     lessons.find(
       (lesson) =>
-        !completed.includes(lesson.id)
+        !completed.includes(
+          lesson.id
+        )
     ) ?? null
   );
 }
