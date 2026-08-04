@@ -1,7 +1,11 @@
 import { curriculum } from "../data/curriculum";
 import { LessonCard } from "../components/LessonCard";
 
+import { getProgress } from "../../progress/services/progress.service";
+
 export function BootcampPage() {
+  const progress = getProgress();
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -22,13 +26,18 @@ export function BootcampPage() {
             Overall Progress
           </h2>
 
-          <span className="text-orange-400 font-semibold">
-            2 / 3 Lessons
+          <span className="font-semibold text-orange-400">
+            {progress.completed} / {progress.total} Lessons
           </span>
         </div>
 
         <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-800">
-          <div className="h-full w-2/3 rounded-full bg-orange-500" />
+          <div
+            className="h-full rounded-full bg-orange-500 transition-all duration-500"
+            style={{
+              width: `${progress.percentage}%`,
+            }}
+          />
         </div>
       </div>
 

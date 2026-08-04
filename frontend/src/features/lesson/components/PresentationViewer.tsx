@@ -24,6 +24,9 @@ export function PresentationViewer({
       <Document
         file={file}
         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+        onLoadError={(error) => {
+          console.error("PDF Load Error:", error);
+        }}
       >
         <Page
           pageNumber={pageNumber}

@@ -1,3 +1,5 @@
+import { curriculum } from "../../bootcamp/data/curriculum";
+
 const STORAGE_KEY = "cloud-academy-progress";
 
 function getStoredLessons(): string[] {
@@ -11,7 +13,10 @@ function getStoredLessons(): string[] {
 }
 
 function saveLessons(lessons: string[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(lessons));
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(lessons)
+  );
 }
 
 export function getCompletedLessons() {
@@ -31,10 +36,28 @@ export function toggleLessonCompletion(id: string) {
     );
   } else {
     completed.push(id);
+
     saveLessons(completed);
   }
 }
 
 export function clearProgress() {
   localStorage.removeItem(STORAGE_KEY);
+}
+
+export function getProgress() {
+  const total = curriculum.flatMap(
+    (module) => module.lessons
+  ).length;
+
+  const completed = getCompletedLessons().length;
+
+  return {
+    total,
+    completed,
+    percentage:
+      total === 0
+        ? 0
+        : Math.round((completed / total) * 100),
+  };
 }
