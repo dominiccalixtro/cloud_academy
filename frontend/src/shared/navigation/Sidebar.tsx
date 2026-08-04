@@ -4,35 +4,43 @@ import {
   LayoutDashboard,
   LogOut,
   User,
+  type LucideIcon,
 } from "lucide-react";
 
 import { NavigationItem } from "./NavigationItem";
 
-const navigation = [
+interface Navigation {
+  label: string;
+  icon: LucideIcon;
+  href: string;
+}
+
+const navigation: Navigation[] = [
   {
     label: "Dashboard",
     icon: LayoutDashboard,
-    active: true,
+    href: "/dashboard",
   },
   {
     label: "Bootcamp",
     icon: GraduationCap,
+    href: "/bootcamp",
   },
   {
     label: "Resources",
     icon: BookOpen,
+    href: "/resources",
   },
   {
     label: "Profile",
     icon: User,
+    href: "/profile",
   },
 ];
 
 export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-64 flex-col border-r border-slate-800 bg-slate-900">
-      {/* Logo */}
-
       <div className="border-b border-slate-800 p-6">
         <h1 className="text-2xl font-bold tracking-tight text-orange-400">
           Cloud Academy
@@ -43,8 +51,6 @@ export function Sidebar() {
         </p>
       </div>
 
-      {/* Navigation */}
-
       <nav className="flex-1 px-4 py-6">
         <div className="space-y-2">
           {navigation.map((item) => (
@@ -52,18 +58,15 @@ export function Sidebar() {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              active={item.active}
+              href={item.href}
             />
           ))}
         </div>
       </nav>
 
-      {/* Logout */}
-
       <div className="border-t border-slate-800 p-4">
         <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-red-400 transition hover:bg-red-500/10">
           <LogOut size={18} />
-
           Logout
         </button>
       </div>
