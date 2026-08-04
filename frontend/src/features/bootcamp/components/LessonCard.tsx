@@ -1,29 +1,30 @@
 import { Link } from "react-router-dom";
-
 import type { Lesson } from "../types";
-
-import { isLessonCompleted } from "../../progress/services/progress.service";
+import { getLessonStatus } from "../../progress/services/progress.service";
 
 interface LessonCardProps {
   lesson: Lesson;
 }
 
-export function LessonCard({ lesson }: LessonCardProps) {
-  const completed = isLessonCompleted(lesson.id);
+export function LessonCard({
+  lesson,
+}: LessonCardProps) {
+  const status = getLessonStatus(
+    lesson.id
+  );
 
-  const locked = false;
+  const statusStyles = {
+    completed:
+      "bg-green-500/10 text-green-400 border border-green-500/20",
 
-  const badgeClass = completed
-    ? "bg-green-500/10 text-green-400 border border-green-500/20"
-    : locked
-    ? "bg-slate-800 text-slate-400 border border-slate-700"
-    : "bg-orange-500/10 text-orange-400 border border-orange-500/20";
+    available:
+      "bg-orange-500/10 text-orange-400 border border-orange-500/20",
+  };
 
-  const badgeLabel = completed
-    ? "Completed"
-    : locked
-    ? "Locked"
-    : "Available";
+  const statusLabels = {
+    completed: "Completed",
+    available: "Available",
+  };
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:border-orange-500/40">
@@ -43,21 +44,31 @@ export function LessonCard({ lesson }: LessonCardProps) {
         </div>
 
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[status]}`}
         >
-          {badgeLabel}
+          {statusLabels[status]}
         </span>
       </div>
 
       <Link
         to={`/lesson/${lesson.id}`}
-        className={`mt-6 block rounded-lg px-4 py-3 text-center font-medium transition ${
-          locked
-            ? "pointer-events-none bg-slate-800 text-slate-500"
-            : "bg-orange-500 text-slate-950 hover:bg-orange-400"
-        }`}
+        className="
+          mt-6
+          block
+          rounded-lg
+          bg-orange-500
+          px-4
+          py-3
+          text-center
+          font-medium
+          text-slate-950
+          transition
+          hover:bg-orange-400
+        "
       >
-        {completed ? "Review Lesson" : "Start Lesson"}
+        {status === "completed"
+          ? "Review Lesson"
+          : "Start Lesson"}
       </Link>
     </div>
   );

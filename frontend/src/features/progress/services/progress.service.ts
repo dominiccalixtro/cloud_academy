@@ -32,11 +32,12 @@ export function toggleLessonCompletion(id: string) {
 
   if (completed.includes(id)) {
     saveLessons(
-      completed.filter((lessonId) => lessonId !== id)
+      completed.filter(
+        (lessonId) => lessonId !== id
+      )
     );
   } else {
     completed.push(id);
-
     saveLessons(completed);
   }
 }
@@ -50,7 +51,8 @@ export function getProgress() {
     (module) => module.lessons
   ).length;
 
-  const completed = getCompletedLessons().length;
+  const completed =
+    getCompletedLessons().length;
 
   return {
     total,
@@ -58,6 +60,16 @@ export function getProgress() {
     percentage:
       total === 0
         ? 0
-        : Math.round((completed / total) * 100),
+        : Math.round(
+            (completed / total) * 100
+          ),
   };
+}
+
+export function getLessonStatus(
+  id: string
+) {
+  return isLessonCompleted(id)
+    ? "completed"
+    : "available";
 }

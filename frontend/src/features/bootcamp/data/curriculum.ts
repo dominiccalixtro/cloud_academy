@@ -21,9 +21,10 @@ export const curriculum: Module[] = [
           "Differentiate physical and virtual servers",
           "Understand cloud computing concepts",
         ],
-        presentation: "/course-content/day-1/lesson.pdf",
-        powerpoint: "/course-content/day-1/lesson.pptx",
-        status: "completed",
+        presentation:
+          "/course-content/day-1/lesson.pdf",
+        powerpoint:
+          "/course-content/day-1/lesson.pptx",
       },
       {
         id: "day-2",
@@ -39,9 +40,10 @@ export const curriculum: Module[] = [
           "Use common Linux commands",
           "Connect using SSH",
         ],
-        presentation: "/course-content/day-2/lesson.pdf",
-        powerpoint: "/course-content/day-2/lesson.pptx",
-        status: "completed",
+        presentation:
+          "/course-content/day-2/lesson.pdf",
+        powerpoint:
+          "/course-content/day-2/lesson.pptx",
       },
       {
         id: "day-3",
@@ -60,9 +62,10 @@ export const curriculum: Module[] = [
           "Explain DNS",
           "Understand routing",
         ],
-        presentation: "/course-content/day-3/lesson.pdf",
-        powerpoint: "/course-content/day-3/lesson.pptx",
-        status: "available",
+        presentation:
+          "/course-content/day-3/lesson.pdf",
+        powerpoint:
+          "/course-content/day-3/lesson.pptx",
       },
     ],
   },
