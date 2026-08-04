@@ -19,7 +19,7 @@ export function WelcomeCard() {
       <p className="mt-2 text-slate-400">
         {user?.role === "instructor"
           ? "Manage your Cloud Academy courses and students."
-          : "Continue your Cloud Engineering journey."
+          : "Continue your Cloud Learning journey."
         }
       </p>
 
