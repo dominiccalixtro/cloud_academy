@@ -3,6 +3,7 @@ import { ProgressCard } from "../components/ProgressCard";
 import { ContinueLearningCard } from "../components/ContinueLearningCard";
 import { RecentQuizCard } from "../components/RecentQuizCard";
 import { AnnouncementCard } from "../components/AnnouncementCard";
+import { LearningStatsCard } from "../components/LearningStatsCard";
 
 export function DashboardPage() {
   return (
@@ -10,12 +11,16 @@ export function DashboardPage() {
       <WelcomeCard />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <ProgressCard />
+        <LearningStatsCard />
         <ContinueLearningCard />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <ProgressCard />
         <RecentQuizCard />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6">
         <AnnouncementCard />
       </div>
     </div>
