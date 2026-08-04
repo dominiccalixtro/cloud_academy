@@ -1,0 +1,44 @@
+name: Deploy Cloud Academy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+
+        with:
+
+          host: ${{ secrets.EC2_HOST }}
+
+          username: ec2-user
+
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          script: |
+
+            cd ~/cloud_academy/frontend
+
+            git pull origin main
+
+            npm ci
+
+            npm run build
+
+            sudo rm -rf /usr/share/nginx/html/*
+
+            sudo cp -r dist/* /usr/share/nginx/html/
+
+            sudo systemctl restart nginx
