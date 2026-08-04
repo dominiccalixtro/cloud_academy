@@ -3,12 +3,25 @@ import type { Quiz } from "../types";
 import { quizzes } from "../data/quizzes";
 
 import {
-  addActivity,
-} from "../../dashboard/services/activity.service";
+  getCurrentUser,
+} from "../../auth/services/auth.service";
 
 
-const STORAGE_KEY =
-  "cloud-academy-quiz-results";
+function getStorageKey() {
+
+  const user =
+    getCurrentUser();
+
+
+  if (!user) {
+    return "cloud-academy-quiz-results";
+  }
+
+
+  return `cloud-academy-quiz-results-${user.id}`;
+
+}
+
 
 
 interface QuizResults {
@@ -16,11 +29,12 @@ interface QuizResults {
 }
 
 
+
 function getResults(): QuizResults {
 
   const data =
     localStorage.getItem(
-      STORAGE_KEY
+      getStorageKey()
     );
 
 
@@ -30,6 +44,7 @@ function getResults(): QuizResults {
 
 
   return JSON.parse(data);
+
 }
 
 
@@ -57,6 +72,7 @@ export function calculateScore(
 
 
   return score;
+
 }
 
 
@@ -74,18 +90,10 @@ export function saveQuizResult(
 
 
   localStorage.setItem(
-    STORAGE_KEY,
+    getStorageKey(),
     JSON.stringify(results)
   );
 
-
-  addActivity({
-    type: "quiz_complete",
-    title:
-      "Quiz Completed",
-    description:
-      `Completed quiz ${quizId} with score ${score}`,
-  });
 }
 
 
@@ -99,6 +107,7 @@ export function getQuizResult(
 
 
   return results[quizId];
+
 }
 
 
@@ -108,9 +117,9 @@ export function isQuizCompleted(
 ) {
 
   return (
-    getQuizResult(quizId) !==
-    undefined
+    getQuizResult(quizId) !== undefined
   );
+
 }
 
 
@@ -128,13 +137,19 @@ export function getQuizProgress() {
 
 
   return {
+
     total,
+
     completed,
+
     percentage:
       total === 0
         ? 0
-        : Math.round(
-            (completed / total) * 100
-          ),
+        :
+        Math.round(
+          (completed / total) * 100
+        ),
+
   };
+
 }

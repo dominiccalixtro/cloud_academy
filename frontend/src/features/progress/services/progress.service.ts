@@ -1,51 +1,74 @@
 import { curriculum } from "../../bootcamp/data/curriculum";
-
-import {
-  addActivity,
-} from "../../dashboard/services/activity.service";
+import { getCurrentUser } from "../../auth/services/auth.service";
 
 
-const STORAGE_KEY =
-  "cloud-academy-progress";
+function getStorageKey() {
+
+  const user = getCurrentUser();
+
+  if (!user) {
+    return "cloud-academy-progress";
+  }
+
+  return `cloud-academy-progress-${user.id}`;
+}
+
 
 
 function getStoredLessons(): string[] {
+
   const data =
-    localStorage.getItem(STORAGE_KEY);
+    localStorage.getItem(
+      getStorageKey()
+    );
+
 
   if (!data) {
     return [];
   }
 
+
   return JSON.parse(data);
 }
+
 
 
 function saveLessons(
   lessons: string[]
 ) {
+
   localStorage.setItem(
-    STORAGE_KEY,
+    getStorageKey(),
     JSON.stringify(lessons)
   );
+
 }
+
 
 
 export function getCompletedLessons() {
+
   return getStoredLessons();
+
 }
+
 
 
 export function isLessonCompleted(
   id: string
 ) {
-  return getStoredLessons().includes(id);
+
+  return getStoredLessons()
+    .includes(id);
+
 }
+
 
 
 export function toggleLessonCompletion(
   id: string
 ) {
+
   const completed =
     getStoredLessons();
 
@@ -59,33 +82,31 @@ export function toggleLessonCompletion(
       )
     );
 
+
   } else {
 
     completed.push(id);
 
     saveLessons(completed);
 
-
-    addActivity({
-      type: "lesson_complete",
-      title:
-        "Lesson Completed",
-      description:
-        `Completed lesson ${id}`,
-    });
-
   }
+
 }
+
 
 
 export function clearProgress() {
+
   localStorage.removeItem(
-    STORAGE_KEY
+    getStorageKey()
   );
+
 }
 
 
+
 export function getProgress() {
+
   const lessons =
     curriculum.flatMap(
       (module) =>
@@ -98,32 +119,45 @@ export function getProgress() {
 
 
   const completed =
-    getCompletedLessons().length;
+    getCompletedLessons()
+      .length;
+
 
 
   return {
+
     total,
+
     completed,
+
     percentage:
       total === 0
         ? 0
-        : Math.round(
-            (completed / total) * 100
-          ),
+        :
+        Math.round(
+          (completed / total) * 100
+        ),
+
   };
+
 }
+
 
 
 export function getLessonStatus(
   id: string
 ) {
+
   return isLessonCompleted(id)
     ? "completed"
     : "available";
+
 }
 
 
+
 export function getNextLesson() {
+
   const lessons =
     curriculum.flatMap(
       (module) =>
@@ -135,6 +169,7 @@ export function getNextLesson() {
     getCompletedLessons();
 
 
+
   return (
     lessons.find(
       (lesson) =>
@@ -143,4 +178,5 @@ export function getNextLesson() {
         )
     ) ?? null
   );
+
 }

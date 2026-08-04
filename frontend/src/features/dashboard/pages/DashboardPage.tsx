@@ -1,46 +1,41 @@
-import { WelcomeCard } from "../components/WelcomeCard";
-import { ProgressCard } from "../components/ProgressCard";
-import { ContinueLearningCard } from "../components/ContinueLearningCard";
-import { RecentQuizCard } from "../components/RecentQuizCard";
-import { AnnouncementCard } from "../components/AnnouncementCard";
-import { LearningStatsCard } from "../components/LearningStatsCard";
-import { AchievementCard } from "../components/AchievementCard";
-import { ActivityCard } from "../components/ActivityCard";
+import { useAuth } from "../../auth/context/AuthContext";
+
+import { StudentDashboard } from "../../student/pages/StudentDashboard";
+import { InstructorDashboard } from "../../instructor/pages/InstructorDashboard";
 
 
 export function DashboardPage() {
+
+  const {
+    user,
+  } = useAuth();
+
+
+  if (!user) {
+    return (
+      <div className="
+        rounded-2xl
+        border
+        border-slate-800
+        bg-slate-900
+        p-6
+      ">
+        <p className="text-slate-400">
+          No user logged in.
+        </p>
+      </div>
+    );
+  }
+
+
+  if (user.role === "instructor") {
+    return (
+      <InstructorDashboard />
+    );
+  }
+
+
   return (
-    <div className="space-y-6">
-
-      <WelcomeCard />
-
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-        <LearningStatsCard />
-
-        <ContinueLearningCard />
-
-      </div>
-
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-        <ProgressCard />
-
-        <RecentQuizCard />
-
-      </div>
-
-
-      <AchievementCard />
-
-
-      <ActivityCard />
-
-
-      <AnnouncementCard />
-
-    </div>
+    <StudentDashboard />
   );
 }
