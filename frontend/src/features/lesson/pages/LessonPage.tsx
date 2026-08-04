@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { PresentationViewer } from "../components/PresentationViewer";
@@ -9,6 +9,11 @@ import {
   toggleLessonCompletion,
 } from "../../progress/services/progress.service";
 
+import {
+  isQuizCompleted,
+  getQuizResult,
+} from "../../quiz/services/quiz.service";
+
 export function LessonPage() {
   const { lessonId } = useParams();
 
@@ -17,6 +22,36 @@ export function LessonPage() {
   const [completed, setCompleted] = useState(
     lesson ? isLessonCompleted(lesson.id) : false
   );
+
+  const [quizCompleted, setQuizCompleted] =
+    useState(
+      lesson
+        ? isQuizCompleted(lesson.id)
+        : false
+    );
+
+  const [quizScore, setQuizScore] =
+    useState<number | undefined>(
+      lesson
+        ? getQuizResult(lesson.id)
+        : undefined
+    );
+
+  useEffect(() => {
+    if (lesson) {
+      setCompleted(
+        isLessonCompleted(lesson.id)
+      );
+
+      setQuizCompleted(
+        isQuizCompleted(lesson.id)
+      );
+
+      setQuizScore(
+        getQuizResult(lesson.id)
+      );
+    }
+  }, [lesson]);
 
   if (!lesson) {
     return (
@@ -38,7 +73,9 @@ export function LessonPage() {
   function handleCompleteLesson() {
     toggleLessonCompletion(lesson.id);
 
-    setCompleted(isLessonCompleted(lesson.id));
+    setCompleted(
+      isLessonCompleted(lesson.id)
+    );
   }
 
   return (
@@ -65,16 +102,20 @@ export function LessonPage() {
         </h2>
 
         <ul className="mt-5 space-y-3">
-          {lesson.objectives.map((objective) => (
-            <li
-              key={objective}
-              className="flex items-center gap-3 text-slate-300"
-            >
-              <span className="text-green-400">✓</span>
+          {lesson.objectives.map(
+            (objective) => (
+              <li
+                key={objective}
+                className="flex items-center gap-3 text-slate-300"
+              >
+                <span className="text-green-400">
+                  ✓
+                </span>
 
-              {objective}
-            </li>
-          ))}
+                {objective}
+              </li>
+            )
+          )}
         </ul>
       </section>
 
@@ -84,7 +125,9 @@ export function LessonPage() {
           Presentation
         </h2>
 
-        <PresentationViewer file={lesson.presentation} />
+        <PresentationViewer
+          file={lesson.presentation}
+        />
       </section>
 
       {/* Resources */}
@@ -131,6 +174,45 @@ export function LessonPage() {
             ? "✓ Completed (Click to Undo)"
             : "Mark Lesson Complete"}
         </button>
+
+        {completed && (
+          <>
+            {quizCompleted && (
+              <div className="mt-4 rounded-lg bg-green-500/10 px-5 py-3 text-center text-green-400">
+                ✓ Quiz Completed
+                {quizScore !== undefined && (
+                  <span className="ml-2">
+                    ({quizScore}/
+                    {lesson.id === "day-1"
+                      ? 3
+                      : "?"})
+                  </span>
+                )}
+              </div>
+            )}
+
+            <Link
+              to={`/quiz/${lesson.id}`}
+              className="
+                mt-4
+                block
+                rounded-lg
+                bg-orange-500
+                px-5
+                py-3
+                text-center
+                font-medium
+                text-slate-950
+                transition
+                hover:bg-orange-400
+              "
+            >
+              {quizCompleted
+                ? "Retake Quiz"
+                : "Take Quiz"}
+            </Link>
+          </>
+        )}
       </section>
     </div>
   );

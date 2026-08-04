@@ -1,10 +1,19 @@
 import { curriculum } from "../data/curriculum";
 import { LessonCard } from "../components/LessonCard";
 
-import { getProgress } from "../../progress/services/progress.service";
+import {
+  getProgress,
+} from "../../progress/services/progress.service";
+
+import {
+  getQuizProgress,
+} from "../../quiz/services/quiz.service";
 
 export function BootcampPage() {
   const progress = getProgress();
+
+  const quizProgress =
+    getQuizProgress();
 
   return (
     <div className="space-y-8">
@@ -19,31 +28,64 @@ export function BootcampPage() {
         </p>
       </div>
 
+
       {/* Progress */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">
-            Overall Progress
-          </h2>
+      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 space-y-8">
 
-          <span className="font-semibold text-orange-400">
-            {progress.completed} / {progress.total} Lessons
-          </span>
+        {/* Lesson Progress */}
+        <div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">
+              Lesson Progress
+            </h2>
+
+            <span className="font-semibold text-orange-400">
+              {progress.completed} / {progress.total} Lessons
+            </span>
+          </div>
+
+          <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-800">
+            <div
+              className="h-full rounded-full bg-orange-500 transition-all duration-500"
+              style={{
+                width: `${progress.percentage}%`,
+              }}
+            />
+          </div>
         </div>
 
-        <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-800">
-          <div
-            className="h-full rounded-full bg-orange-500 transition-all duration-500"
-            style={{
-              width: `${progress.percentage}%`,
-            }}
-          />
+
+        {/* Quiz Progress */}
+        <div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">
+              Quiz Progress
+            </h2>
+
+            <span className="font-semibold text-green-400">
+              {quizProgress.completed} / {quizProgress.total} Quizzes
+            </span>
+          </div>
+
+          <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-800">
+            <div
+              className="h-full rounded-full bg-green-500 transition-all duration-500"
+              style={{
+                width: `${quizProgress.percentage}%`,
+              }}
+            />
+          </div>
         </div>
+
       </div>
+
 
       {/* Modules */}
       {curriculum.map((module) => (
-        <section key={module.id} className="space-y-6">
+        <section
+          key={module.id}
+          className="space-y-6"
+        >
           <div>
             <h2 className="text-2xl font-bold text-orange-400">
               {module.title}
@@ -53,6 +95,7 @@ export function BootcampPage() {
               {module.description}
             </p>
           </div>
+
 
           <div className="grid gap-6 lg:grid-cols-2">
             {module.lessons.map((lesson) => (

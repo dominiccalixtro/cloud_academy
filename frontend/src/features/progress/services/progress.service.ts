@@ -38,6 +38,7 @@ export function toggleLessonCompletion(id: string) {
     );
   } else {
     completed.push(id);
+
     saveLessons(completed);
   }
 }
@@ -47,9 +48,11 @@ export function clearProgress() {
 }
 
 export function getProgress() {
-  const total = curriculum.flatMap(
+  const lessons = curriculum.flatMap(
     (module) => module.lessons
-  ).length;
+  );
+
+  const total = lessons.length;
 
   const completed =
     getCompletedLessons().length;

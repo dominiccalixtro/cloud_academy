@@ -57,6 +57,11 @@ export function QuizPage() {
       result
     );
 
+    // Notify LessonPage that quiz is completed
+    window.dispatchEvent(
+      new Event("quizCompleted")
+    );
+
     setScore(result);
     setFinished(true);
   }
@@ -80,10 +85,20 @@ export function QuizPage() {
         </div>
 
         <Link
-          to="/bootcamp"
-          className="inline-block rounded-lg bg-orange-500 px-5 py-3 font-medium text-slate-950"
+          to={`/lesson/${quiz.id}`}
+          className="
+            inline-block
+            rounded-lg
+            bg-orange-500
+            px-5
+            py-3
+            font-medium
+            text-slate-950
+            transition
+            hover:bg-orange-400
+          "
         >
-          Back to Bootcamp
+          Back to Lesson
         </Link>
       </div>
     );
@@ -125,7 +140,13 @@ export function QuizPage() {
               (value) => value - 1
             )
           }
-          className="rounded-lg bg-slate-800 px-5 py-3 disabled:opacity-40"
+          className="
+            rounded-lg
+            bg-slate-800
+            px-5
+            py-3
+            disabled:opacity-40
+          "
         >
           Previous
         </button>
@@ -133,7 +154,14 @@ export function QuizPage() {
         {isLastQuestion ? (
           <button
             onClick={submitQuiz}
-            className="rounded-lg bg-orange-500 px-5 py-3 font-medium text-slate-950"
+            className="
+              rounded-lg
+              bg-orange-500
+              px-5
+              py-3
+              font-medium
+              text-slate-950
+            "
           >
             Submit Quiz
           </button>
@@ -144,7 +172,14 @@ export function QuizPage() {
                 (value) => value + 1
               )
             }
-            className="rounded-lg bg-orange-500 px-5 py-3 font-medium text-slate-950"
+            className="
+              rounded-lg
+              bg-orange-500
+              px-5
+              py-3
+              font-medium
+              text-slate-950
+            "
           >
             Next
           </button>
