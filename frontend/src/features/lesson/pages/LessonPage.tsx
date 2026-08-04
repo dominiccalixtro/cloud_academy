@@ -1,14 +1,22 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { curriculum } from "../../bootcamp/data/curriculum";
 import { PresentationViewer } from "../components/PresentationViewer";
+import { getLessonById } from "../services/lesson.service";
+
+import {
+  isLessonCompleted,
+  toggleLessonCompletion,
+} from "../../progress/services/progress.service";
 
 export function LessonPage() {
   const { lessonId } = useParams();
 
-  const lesson = curriculum
-    .flatMap((module) => module.lessons)
-    .find((lesson) => lesson.id === lessonId);
+  const lesson = getLessonById(lessonId ?? "");
+
+  const [completed, setCompleted] = useState(
+    lesson ? isLessonCompleted(lesson.id) : false
+  );
 
   if (!lesson) {
     return (
@@ -27,10 +35,15 @@ export function LessonPage() {
     );
   }
 
+  function handleCompleteLesson() {
+    toggleLessonCompletion(lesson.id);
+
+    setCompleted(isLessonCompleted(lesson.id));
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
-
       <div>
         <p className="text-sm font-medium text-orange-400">
           Week {lesson.week} • Day {lesson.day}
@@ -45,8 +58,7 @@ export function LessonPage() {
         </p>
       </div>
 
-      {/* Objectives */}
-
+      {/* Learning Objectives */}
       <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
         <h2 className="text-xl font-semibold">
           Learning Objectives
@@ -67,7 +79,6 @@ export function LessonPage() {
       </section>
 
       {/* Presentation */}
-
       <section className="space-y-4">
         <h2 className="text-xl font-semibold">
           Presentation
@@ -76,8 +87,7 @@ export function LessonPage() {
         <PresentationViewer file={lesson.presentation} />
       </section>
 
-      {/* Downloads */}
-
+      {/* Resources */}
       <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
         <h2 className="text-xl font-semibold">
           Resources
@@ -101,6 +111,26 @@ export function LessonPage() {
             Open PDF
           </a>
         </div>
+      </section>
+
+      {/* Lesson Progress */}
+      <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <h2 className="text-xl font-semibold">
+          Lesson Progress
+        </h2>
+
+        <button
+          onClick={handleCompleteLesson}
+          className={`mt-6 rounded-lg px-5 py-3 font-medium transition ${
+            completed
+              ? "bg-green-600 text-white hover:bg-green-500"
+              : "bg-orange-500 text-slate-950 hover:bg-orange-400"
+          }`}
+        >
+          {completed
+            ? "✓ Completed (Click to Undo)"
+            : "Mark Lesson Complete"}
+        </button>
       </section>
     </div>
   );

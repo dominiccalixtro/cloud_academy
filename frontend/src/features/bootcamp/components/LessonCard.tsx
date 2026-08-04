@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom";
+
 import type { Lesson } from "../types";
+
+import { isLessonCompleted } from "../../progress/services/progress.service";
 
 interface LessonCardProps {
   lesson: Lesson;
 }
 
 export function LessonCard({ lesson }: LessonCardProps) {
-  const statusStyles = {
-    completed:
-      "bg-green-500/10 text-green-400 border border-green-500/20",
-    available:
-      "bg-orange-500/10 text-orange-400 border border-orange-500/20",
-    locked:
-      "bg-slate-800 text-slate-400 border border-slate-700",
-  };
+  const completed = isLessonCompleted(lesson.id);
 
-  const statusLabels = {
-    completed: "Completed",
-    available: "Available",
-    locked: "Locked",
-  };
+  const locked = false;
+
+  const badgeClass = completed
+    ? "bg-green-500/10 text-green-400 border border-green-500/20"
+    : locked
+    ? "bg-slate-800 text-slate-400 border border-slate-700"
+    : "bg-orange-500/10 text-orange-400 border border-orange-500/20";
+
+  const badgeLabel = completed
+    ? "Completed"
+    : locked
+    ? "Locked"
+    : "Available";
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:border-orange-500/40">
@@ -39,25 +43,21 @@ export function LessonCard({ lesson }: LessonCardProps) {
         </div>
 
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[lesson.status]}`}
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}
         >
-          {statusLabels[lesson.status]}
+          {badgeLabel}
         </span>
       </div>
 
       <Link
         to={`/lesson/${lesson.id}`}
         className={`mt-6 block rounded-lg px-4 py-3 text-center font-medium transition ${
-          lesson.status === "locked"
+          locked
             ? "pointer-events-none bg-slate-800 text-slate-500"
             : "bg-orange-500 text-slate-950 hover:bg-orange-400"
         }`}
       >
-        {lesson.status === "completed"
-          ? "Review Lesson"
-          : lesson.status === "available"
-          ? "Start Lesson"
-          : "Locked"}
+        {completed ? "Review Lesson" : "Start Lesson"}
       </Link>
     </div>
   );
