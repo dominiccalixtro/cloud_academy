@@ -66,10 +66,23 @@ export function getProgress() {
   };
 }
 
-export function getLessonStatus(
-  id: string
-) {
+export function getLessonStatus(id: string) {
   return isLessonCompleted(id)
     ? "completed"
     : "available";
+}
+
+export function getNextLesson() {
+  const lessons = curriculum.flatMap(
+    (module) => module.lessons
+  );
+
+  const completed = getCompletedLessons();
+
+  return (
+    lessons.find(
+      (lesson) =>
+        !completed.includes(lesson.id)
+    ) ?? null
+  );
 }
