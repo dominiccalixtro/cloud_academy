@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 import type { Lesson } from "../types";
-import { getLessonStatus } from "../../progress/services/progress.service";
+
+import {
+  getLessonStatus,
+} from "../../progress/services/progress.service";
+
+import {
+  isQuizCompleted,
+  getQuizResult,
+} from "../../quiz/services/quiz.service";
 
 interface LessonCardProps {
   lesson: Lesson;
@@ -10,6 +18,14 @@ export function LessonCard({
   lesson,
 }: LessonCardProps) {
   const status = getLessonStatus(
+    lesson.id
+  );
+
+  const quizCompleted = isQuizCompleted(
+    lesson.id
+  );
+
+  const quizScore = getQuizResult(
     lesson.id
   );
 
@@ -49,6 +65,54 @@ export function LessonCard({
           {statusLabels[status]}
         </span>
       </div>
+
+
+      {/* Progress Details */}
+      <div className="mt-6 space-y-3 rounded-lg border border-slate-800 bg-slate-950 p-4">
+
+        <div className="flex justify-between">
+          <span className="text-sm text-slate-400">
+            Lesson
+          </span>
+
+          <span
+            className={
+              status === "completed"
+                ? "text-green-400"
+                : "text-orange-400"
+            }
+          >
+            {status === "completed"
+              ? "✓ Completed"
+              : "Available"}
+          </span>
+        </div>
+
+
+        <div className="flex justify-between">
+          <span className="text-sm text-slate-400">
+            Quiz
+          </span>
+
+          <span
+            className={
+              quizCompleted
+                ? "text-green-400"
+                : "text-slate-400"
+            }
+          >
+            {quizCompleted
+              ? `✓ Completed ${
+                  quizScore !== undefined
+                    ? `(${quizScore}/3)`
+                    : ""
+                }`
+              : "Not Completed"}
+          </span>
+        </div>
+
+      </div>
+
 
       <Link
         to={`/lesson/${lesson.id}`}
