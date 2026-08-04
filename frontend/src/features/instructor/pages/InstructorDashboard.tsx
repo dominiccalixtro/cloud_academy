@@ -4,9 +4,12 @@ import { useAuth } from "../../auth/context/AuthContext";
 
 export function InstructorDashboard() {
 
+
   const {
     user,
   } = useAuth();
+
+
 
 
   return (
@@ -14,7 +17,9 @@ export function InstructorDashboard() {
     <div className="space-y-6">
 
 
+
       {/* Welcome Header */}
+
       <div
         className="
           rounded-2xl
@@ -32,7 +37,9 @@ export function InstructorDashboard() {
             text-white
           "
         >
+
           Welcome back, {user?.name} 👋
+
         </h1>
 
 
@@ -42,7 +49,9 @@ export function InstructorDashboard() {
             text-slate-400
           "
         >
+
           Manage your Cloud Academy courses and students.
+
         </p>
 
 
@@ -51,7 +60,9 @@ export function InstructorDashboard() {
 
 
 
+
       {/* Instructor Statistics */}
+
       <div
         className="
           grid
@@ -62,7 +73,6 @@ export function InstructorDashboard() {
       >
 
 
-        {/* Students */}
         <div
           className="
             rounded-2xl
@@ -77,7 +87,6 @@ export function InstructorDashboard() {
             Students
           </p>
 
-
           <h2
             className="
               mt-3
@@ -89,17 +98,9 @@ export function InstructorDashboard() {
             1
           </h2>
 
-
-          <p
-            className="
-              mt-2
-              text-sm
-              text-slate-500
-            "
-          >
+          <p className="mt-2 text-sm text-slate-500">
             Registered students
           </p>
-
 
         </div>
 
@@ -107,7 +108,6 @@ export function InstructorDashboard() {
 
 
 
-        {/* Courses */}
         <div
           className="
             rounded-2xl
@@ -122,7 +122,6 @@ export function InstructorDashboard() {
             Courses
           </p>
 
-
           <h2
             className="
               mt-3
@@ -134,17 +133,9 @@ export function InstructorDashboard() {
             3
           </h2>
 
-
-          <p
-            className="
-              mt-2
-              text-sm
-              text-slate-500
-            "
-          >
+          <p className="mt-2 text-sm text-slate-500">
             Active courses
           </p>
-
 
         </div>
 
@@ -152,7 +143,6 @@ export function InstructorDashboard() {
 
 
 
-        {/* Quizzes */}
         <div
           className="
             rounded-2xl
@@ -167,7 +157,6 @@ export function InstructorDashboard() {
             Quizzes
           </p>
 
-
           <h2
             className="
               mt-3
@@ -179,17 +168,9 @@ export function InstructorDashboard() {
             3
           </h2>
 
-
-          <p
-            className="
-              mt-2
-              text-sm
-              text-slate-500
-            "
-          >
+          <p className="mt-2 text-sm text-slate-500">
             Assessments created
           </p>
-
 
         </div>
 
@@ -200,7 +181,10 @@ export function InstructorDashboard() {
 
 
 
+
+
       {/* Instructor Tools */}
+
       <div
         className="
           rounded-2xl
@@ -224,6 +208,7 @@ export function InstructorDashboard() {
 
 
 
+
         <div
           className="
             mt-5
@@ -236,8 +221,11 @@ export function InstructorDashboard() {
 
 
 
+
           <Link
-            to="/instructor/courses"
+
+            to="/course-management"
+
             className="
               rounded-lg
               bg-orange-500
@@ -249,16 +237,23 @@ export function InstructorDashboard() {
               transition
               hover:bg-orange-400
             "
+
           >
+
             Manage Courses
+
           </Link>
 
 
 
 
 
+
+
           <Link
-            to="/instructor/students"
+
+            to="/student-management"
+
             className="
               rounded-lg
               bg-orange-500
@@ -270,16 +265,23 @@ export function InstructorDashboard() {
               transition
               hover:bg-orange-400
             "
+
           >
+
             Manage Students
+
           </Link>
 
 
 
 
 
+
+
           <Link
-            to="/instructor/quizzes"
+
+            to="/quiz-management"
+
             className="
               rounded-lg
               bg-orange-500
@@ -291,9 +293,13 @@ export function InstructorDashboard() {
               transition
               hover:bg-orange-400
             "
+
           >
+
             Create Quiz
+
           </Link>
+
 
 
 
@@ -306,7 +312,10 @@ export function InstructorDashboard() {
 
 
 
+
+
       {/* Analytics Section */}
+
       <div
         className="
           rounded-2xl
@@ -317,6 +326,7 @@ export function InstructorDashboard() {
         "
       >
 
+
         <h2
           className="
             text-xl
@@ -324,8 +334,11 @@ export function InstructorDashboard() {
             text-white
           "
         >
+
           Student Analytics
+
         </h2>
+
 
 
         <p
@@ -334,9 +347,14 @@ export function InstructorDashboard() {
             text-slate-400
           "
         >
+
           Monitor student progress, lesson completion,
           and quiz performance.
+
         </p>
+
+
+
 
 
         <div
@@ -348,6 +366,7 @@ export function InstructorDashboard() {
             md:grid-cols-3
           "
         >
+
 
 
           <div
@@ -374,6 +393,7 @@ export function InstructorDashboard() {
             </p>
 
           </div>
+
 
 
 
@@ -419,6 +439,7 @@ export function InstructorDashboard() {
               Active Learners
             </p>
 
+
             <p
               className="
                 mt-2
@@ -430,6 +451,7 @@ export function InstructorDashboard() {
               1
             </p>
 
+
           </div>
 
 
@@ -437,10 +459,14 @@ export function InstructorDashboard() {
         </div>
 
 
+
       </div>
+
+
 
 
     </div>
 
   );
+
 }

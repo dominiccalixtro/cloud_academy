@@ -5,18 +5,28 @@ import {
   Routes,
 } from "react-router-dom";
 
+
 import { AppLayout } from "./layouts/AppLayout";
 
+
+// Student pages
 import { DashboardPage } from "./features/dashboard/pages/DashboardPage";
 import { BootcampPage } from "./features/bootcamp/pages/BootcampPage";
 import { LessonPage } from "./features/lesson/pages/LessonPage";
 import { QuizPage } from "./features/quiz/pages/QuizPage";
 import { ProfilePage } from "./features/profile/pages/ProfilePage";
+
+
+// Auth
 import { LoginPage } from "./features/auth/pages/LoginPage";
-
-import { CourseManagementPage } from "./features/instructor/pages/CourseManagementPage";
-
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
+
+
+// Instructor pages
+import { CourseManagementPage } from "./features/instructor/pages/CourseManagementPage";
+import { QuizManagementPage } from "./features/instructor/quiz/pages/QuizManagementPage";
+import { StudentManagementPage } from "./features/instructor/student/pages/StudentManagementPage";
+
 
 
 function App() {
@@ -28,82 +38,171 @@ function App() {
       <Routes>
 
 
-        {/* Public Routes */}
+        {/* Public Route */}
 
         <Route
           path="/login"
-          element={<LoginPage />}
+          element={
+            <LoginPage />
+          }
         />
+
+
 
 
 
         {/* Protected Application Routes */}
 
         <Route
+
           path="/"
+
           element={
+
             <ProtectedRoute>
+
               <AppLayout />
+
             </ProtectedRoute>
+
           }
+
         >
 
 
 
           <Route
+
             index
+
             element={
+
               <Navigate
+
                 to="/dashboard"
+
                 replace
+
               />
+
             }
+
           />
 
 
 
+
+
+
+          {/* =====================
+              Student Routes
+          ====================== */}
+
+
           <Route
+
             path="dashboard"
-            element={<DashboardPage />}
+
+            element={
+              <DashboardPage />
+            }
+
           />
 
 
 
           <Route
+
             path="bootcamp"
-            element={<BootcampPage />}
+
+            element={
+              <BootcampPage />
+            }
+
           />
 
 
 
           <Route
+
             path="lesson/:lessonId"
-            element={<LessonPage />}
+
+            element={
+              <LessonPage />
+            }
+
           />
 
 
 
           <Route
+
             path="quiz/:quizId"
-            element={<QuizPage />}
+
+            element={
+              <QuizPage />
+            }
+
           />
 
 
 
           <Route
+
             path="profile"
-            element={<ProfilePage />}
+
+            element={
+              <ProfilePage />
+            }
+
           />
 
 
 
 
-          {/* Instructor Routes */}
+
+
+          {/* =====================
+              Instructor Routes
+          ====================== */}
+
+
 
           <Route
-            path="instructor/courses"
-            element={<CourseManagementPage />}
+
+            path="course-management"
+
+            element={
+              <CourseManagementPage />
+            }
+
           />
+
+
+
+          <Route
+
+            path="quiz-management"
+
+            element={
+              <QuizManagementPage />
+            }
+
+          />
+
+
+
+          <Route
+
+            path="student-management"
+
+            element={
+              <StudentManagementPage />
+            }
+
+          />
+
+
 
 
 
@@ -113,17 +212,28 @@ function App() {
 
 
 
+
+
         {/* Fallback */}
 
         <Route
+
           path="*"
+
           element={
+
             <Navigate
+
               to="/login"
+
               replace
+
             />
+
           }
+
         />
+
 
 
       </Routes>
@@ -132,6 +242,7 @@ function App() {
     </BrowserRouter>
 
   );
+
 }
 
 
