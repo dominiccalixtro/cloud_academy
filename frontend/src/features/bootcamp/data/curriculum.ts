@@ -25,7 +25,9 @@ export const curriculum: Module[] = [
           "/course-content/day-1/lesson.pdf",
         powerpoint:
           "/course-content/day-1/lesson.pptx",
+        status: "available",
       },
+
       {
         id: "day-2",
         week: 1,
@@ -44,7 +46,9 @@ export const curriculum: Module[] = [
           "/course-content/day-2/lesson.pdf",
         powerpoint:
           "/course-content/day-2/lesson.pptx",
+        status: "available",
       },
+
       {
         id: "day-3",
         week: 1,
@@ -66,6 +70,7 @@ export const curriculum: Module[] = [
           "/course-content/day-3/lesson.pdf",
         powerpoint:
           "/course-content/day-3/lesson.pptx",
+        status: "available",
       },
     ],
   },

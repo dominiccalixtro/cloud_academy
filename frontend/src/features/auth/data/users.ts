@@ -5,8 +5,8 @@ export const users: User[] = [
 
   {
     id: "user-001",
-    name: "Dominic",
-    email: "dominic@cloudacademy.com",
+    name: "Dominic Calixtro",
+    email: "dominic@dccloudacademy.com",
     role: "instructor",
     avatar: "D",
   },
@@ -14,10 +14,10 @@ export const users: User[] = [
 
   {
     id: "user-002",
-    name: "John Smith",
-    email: "john@student.com",
+    name: "Aeya Quilacio",
+    email: "aeya@dccloudacademy.com",
     role: "student",
-    avatar: "J",
+    avatar: "A",
   },
 
 

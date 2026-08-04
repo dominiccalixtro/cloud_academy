@@ -5,8 +5,7 @@ import {
   addQuiz,
   updateQuiz,
   deleteQuiz
-}
-from "../services/quiz-management.service";
+} from "../services/quiz-management.service";
 
 
 import { AddQuizModal }
@@ -21,16 +20,17 @@ from "../components/EditQuizModal";
 export function QuizManagementPage(){
 
 
-const [quizzes,setQuizzes]=
+const [quizzes,setQuizzes] =
 useState<any[]>([]);
 
 
-const [showAdd,setShowAdd]=
+const [showAdd,setShowAdd] =
 useState(false);
 
 
-const [selectedQuiz,setSelectedQuiz]=
+const [selectedQuiz,setSelectedQuiz] =
 useState<any>(null);
+
 
 
 
@@ -38,9 +38,9 @@ useState<any>(null);
 
 function load(){
 
-setQuizzes(
-getQuizzes()
-);
+  setQuizzes(
+    getQuizzes()
+  );
 
 }
 
@@ -48,9 +48,10 @@ getQuizzes()
 
 
 
+
 useEffect(()=>{
 
-load();
+  load();
 
 },[]);
 
@@ -65,13 +66,16 @@ return (
 <div className="space-y-6">
 
 
-<div className="
+
+<div
+className="
 rounded-2xl
 border
 border-slate-800
 bg-slate-900
 p-8
-">
+"
+>
 
 
 <h1 className="text-3xl font-bold">
@@ -90,13 +94,20 @@ Create and manage assessments.
 
 
 
-<div className="
+
+
+
+
+<div
+className="
 rounded-2xl
 bg-slate-900
 border
 border-slate-800
 p-6
-">
+"
+>
+
 
 
 <button
@@ -109,13 +120,16 @@ rounded
 text-black
 "
 
-onClick={()=>
-setShowAdd(true)
-}
+onClick={()=>setShowAdd(true)}
 
 >
+
 Create Quiz
+
 </button>
+
+
+
 
 
 
@@ -125,13 +139,16 @@ Create Quiz
 <div className="mt-6 space-y-4">
 
 
+
 {
 quizzes.map(
-quiz=>(
+(quiz:any)=>(
 
 
 <div
+
 key={quiz.id}
+
 className="
 bg-slate-950
 rounded-xl
@@ -139,19 +156,24 @@ p-5
 flex
 justify-between
 "
+
 >
 
 
+
 <div>
+
 
 <h2 className="font-bold">
 {quiz.title}
 </h2>
 
 
+
 <p className="text-slate-400">
 {quiz.description}
 </p>
+
 
 
 <p className="text-orange-400">
@@ -165,22 +187,48 @@ Questions:
 
 
 
+
+
+
 <div className="flex gap-3">
 
 
+
+
+
 <button
+
+className="
+rounded-lg
+bg-slate-800
+px-3
+py-2
+"
+
 onClick={()=>
 setSelectedQuiz(quiz)
 }
+
 >
+
 Edit
+
 </button>
 
 
 
+
+
+
+
 <button
 
-className="bg-red-500 px-3"
+className="
+bg-red-500
+px-3
+py-2
+rounded-lg
+"
 
 onClick={()=>{
 
@@ -193,25 +241,41 @@ load();
 }}
 
 >
+
 Delete
+
 </button>
 
 
+
+
+
 </div>
 
 
+
 </div>
 
 
+
 )
+
 )
+
 }
 
 
+
+
+
 </div>
 
 
+
 </div>
+
+
+
 
 
 
@@ -227,17 +291,23 @@ onClose={()=>
 setShowAdd(false)
 }
 
-onSave={(quiz)=>{
+onSave={(quiz:any)=>{
 
 addQuiz(quiz);
 
 load();
+
+setShowAdd(false);
 
 }}
 
 />
 
 }
+
+
+
+
 
 
 
@@ -255,17 +325,20 @@ onClose={()=>
 setSelectedQuiz(null)
 }
 
-onSave={(quiz)=>{
+onSave={(quiz:any)=>{
 
-updateQuiz(quiz);
+  updateQuiz(quiz);
 
-load();
+  load();
 
 }}
 
 />
 
 }
+
+
+
 
 
 

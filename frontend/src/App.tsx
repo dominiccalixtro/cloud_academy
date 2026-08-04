@@ -15,11 +15,14 @@ import { BootcampPage } from "./features/bootcamp/pages/BootcampPage";
 import { LessonPage } from "./features/lesson/pages/LessonPage";
 import { QuizPage } from "./features/quiz/pages/QuizPage";
 import { ProfilePage } from "./features/profile/pages/ProfilePage";
+import { ResourcesPage } from "./features/resources/pages/ResourcesPage";
 
 
 // Auth
 import { LoginPage } from "./features/auth/pages/LoginPage";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
+import { RoleProtectedRoute } from "./features/auth/components/RoleProtectedRoute";
+
 
 
 // Instructor pages
@@ -29,65 +32,159 @@ import { StudentManagementPage } from "./features/instructor/student/pages/Stude
 
 
 
+
+
 function App() {
+
 
   return (
 
+
     <BrowserRouter>
+
 
       <Routes>
 
 
+
+
         {/* Public Route */}
 
+
         <Route
+
           path="/login"
+
           element={
             <LoginPage />
           }
+
         />
 
 
 
 
 
-        {/* Protected Application Routes */}
+
+
+
+        {/* Protected Application */}
+
 
         <Route
 
+
           path="/"
+
 
           element={
 
+
             <ProtectedRoute>
+
 
               <AppLayout />
 
+
             </ProtectedRoute>
 
+
           }
+
 
         >
 
 
 
+
+
+
           <Route
+
 
             index
 
+
             element={
+
 
               <Navigate
 
+
                 to="/dashboard"
+
 
                 replace
 
+
               />
+
+
+            }
+
+
+          />
+
+
+
+
+
+
+
+
+
+          {/* =====================
+              Shared Routes
+          ====================== */}
+
+
+
+          <Route
+
+            path="dashboard"
+
+            element={
+
+              <DashboardPage />
 
             }
 
           />
+
+
+
+
+
+          <Route
+
+            path="profile"
+
+            element={
+
+              <ProfilePage />
+
+            }
+
+          />
+
+
+
+
+
+          <Route
+
+            path="resources"
+
+            element={
+
+              <ResourcesPage />
+
+            }
+
+          />
+
+
+
 
 
 
@@ -99,27 +196,29 @@ function App() {
           ====================== */}
 
 
-          <Route
-
-            path="dashboard"
-
-            element={
-              <DashboardPage />
-            }
-
-          />
-
-
 
           <Route
 
             path="bootcamp"
 
             element={
-              <BootcampPage />
+
+              <RoleProtectedRoute
+
+                role="student"
+
+              >
+
+                <BootcampPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
+
+
+
 
 
 
@@ -128,10 +227,25 @@ function App() {
             path="lesson/:lessonId"
 
             element={
-              <LessonPage />
+
+              <RoleProtectedRoute
+
+                role="student"
+
+              >
+
+                <LessonPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
+
+
+
+
+
 
 
 
@@ -140,22 +254,23 @@ function App() {
             path="quiz/:quizId"
 
             element={
-              <QuizPage />
+
+              <RoleProtectedRoute
+
+                role="student"
+
+              >
+
+                <QuizPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
 
 
 
-          <Route
-
-            path="profile"
-
-            element={
-              <ProfilePage />
-            }
-
-          />
 
 
 
@@ -168,15 +283,32 @@ function App() {
 
 
 
+
+
           <Route
 
             path="course-management"
 
             element={
-              <CourseManagementPage />
+
+              <RoleProtectedRoute
+
+                role="instructor"
+
+              >
+
+                <CourseManagementPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
+
+
+
+
+
 
 
 
@@ -185,10 +317,25 @@ function App() {
             path="quiz-management"
 
             element={
-              <QuizManagementPage />
+
+              <RoleProtectedRoute
+
+                role="instructor"
+
+              >
+
+                <QuizManagementPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
+
+
+
+
+
 
 
 
@@ -197,10 +344,21 @@ function App() {
             path="student-management"
 
             element={
-              <StudentManagementPage />
+
+              <RoleProtectedRoute
+
+                role="instructor"
+
+              >
+
+                <StudentManagementPage />
+
+              </RoleProtectedRoute>
+
             }
 
           />
+
 
 
 
@@ -214,25 +372,38 @@ function App() {
 
 
 
+
+
         {/* Fallback */}
+
 
         <Route
 
+
           path="*"
+
 
           element={
 
+
             <Navigate
+
 
               to="/login"
 
+
               replace
+
 
             />
 
+
           }
 
+
         />
+
+
 
 
 
@@ -241,9 +412,11 @@ function App() {
 
     </BrowserRouter>
 
+
   );
 
 }
+
 
 
 export default App;

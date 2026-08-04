@@ -402,19 +402,17 @@ export function CourseManagementPage() {
       {
         showAddModal && (
 
-          <AddLessonModal
-
-            moduleId={selectedModule}
+            <AddLessonModal
 
             onClose={() =>
-              setShowAddModal(false)
+                setShowAddModal(false)
             }
 
             onSave={
-              handleAddLesson
+                handleAddLesson
             }
 
-          />
+            />
 
         )
       }

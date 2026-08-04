@@ -12,6 +12,7 @@ export function LoginPage() {
   const [error, setError] =
     useState("");
 
+
   const {
     signIn,
   } = useAuth();
@@ -46,40 +47,49 @@ export function LoginPage() {
 
 
   return (
-    <div className="
-      flex
-      min-h-screen
-      items-center
-      justify-center
-    ">
+    <div
+      className="
+        flex
+        min-h-screen
+        items-center
+        justify-center
+      "
+    >
 
 
-      <div className="
-        w-full
-        max-w-md
-        rounded-2xl
-        border
-        border-slate-800
-        bg-slate-900
-        p-8
-      ">
+      <div
+        className="
+          w-full
+          max-w-md
+          rounded-2xl
+          border
+          border-slate-800
+          bg-slate-900
+          p-8
+        "
+      >
 
 
-        <h1 className="
-          text-3xl
-          font-bold
-          text-white
-        ">
+        <h1
+          className="
+            text-3xl
+            font-bold
+            text-white
+          "
+        >
           Cloud Academy Login
         </h1>
 
 
-        <p className="
-          mt-2
-          text-slate-400
-        ">
+        <p
+          className="
+            mt-2
+            text-slate-400
+          "
+        >
           Enter your account email
         </p>
+
 
 
         <input
@@ -102,14 +112,18 @@ export function LoginPage() {
         />
 
 
+
         {error && (
-          <p className="
-            mt-3
-            text-red-400
-          ">
+          <p
+            className="
+              mt-3
+              text-red-400
+            "
+          >
             {error}
           </p>
         )}
+
 
 
         <button
@@ -127,32 +141,6 @@ export function LoginPage() {
         >
           Login
         </button>
-
-
-        <div className="
-          mt-6
-          text-sm
-          text-slate-400
-        ">
-
-          <p>
-            Instructor:
-          </p>
-
-          <p>
-            dominic@cloudacademy.com
-          </p>
-
-
-          <p className="mt-3">
-            Student:
-          </p>
-
-          <p>
-            john@student.com
-          </p>
-
-        </div>
 
 
       </div>

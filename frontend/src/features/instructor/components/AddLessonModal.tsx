@@ -3,34 +3,32 @@ import { useState } from "react";
 
 interface AddLessonModalProps {
 
-  moduleId: string;
-
   onClose: () => void;
 
-  onSave: (lesson:any)=>void;
+  onSave: (lesson: any) => void;
 
 }
 
 
 
 export function AddLessonModal({
-  moduleId,
   onClose,
   onSave,
 }: AddLessonModalProps) {
 
 
-  const [title,setTitle] =
+  const [title, setTitle] =
     useState("");
 
-  const [duration,setDuration] =
+  const [duration, setDuration] =
     useState("");
 
-  const [week,setWeek] =
+  const [week, setWeek] =
     useState(1);
 
-  const [day,setDay] =
+  const [day, setDay] =
     useState(1);
+
 
 
 
@@ -51,9 +49,13 @@ export function AddLessonModal({
       day,
 
       description:
-        "New lesson created by instructor."
+        "New lesson created by instructor.",
+
+      status:
+        "available"
 
     };
+
 
 
     onSave(
@@ -64,6 +66,8 @@ export function AddLessonModal({
     onClose();
 
   }
+
+
 
 
 
@@ -103,7 +107,9 @@ export function AddLessonModal({
 
 
 
+
         <div className="mt-5 space-y-4">
+
 
 
           <input
@@ -118,9 +124,14 @@ export function AddLessonModal({
             "
             value={title}
             onChange={
-              e=>setTitle(e.target.value)
+              e =>
+                setTitle(
+                  e.target.value
+                )
             }
           />
+
+
 
 
 
@@ -136,9 +147,14 @@ export function AddLessonModal({
             "
             value={duration}
             onChange={
-              e=>setDuration(e.target.value)
+              e =>
+                setDuration(
+                  e.target.value
+                )
             }
           />
+
+
 
 
 
@@ -155,11 +171,16 @@ export function AddLessonModal({
             "
             value={week}
             onChange={
-              e=>setWeek(
-                Number(e.target.value)
-              )
+              e =>
+                setWeek(
+                  Number(
+                    e.target.value
+                  )
+                )
             }
           />
+
+
 
 
 
@@ -176,9 +197,12 @@ export function AddLessonModal({
             "
             value={day}
             onChange={
-              e=>setDay(
-                Number(e.target.value)
-              )
+              e =>
+                setDay(
+                  Number(
+                    e.target.value
+                  )
+                )
             }
           />
 
@@ -190,7 +214,10 @@ export function AddLessonModal({
 
 
 
+
+
         <div className="mt-6 flex justify-end gap-3">
+
 
 
           <button
@@ -208,6 +235,8 @@ export function AddLessonModal({
 
 
 
+
+
           <button
             onClick={submit}
             className="
@@ -220,6 +249,7 @@ export function AddLessonModal({
           >
             Save Lesson
           </button>
+
 
 
 
