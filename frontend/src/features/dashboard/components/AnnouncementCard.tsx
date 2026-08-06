@@ -12,6 +12,7 @@ export function AnnouncementCard() {
 
         <p className="mt-2 text-sm text-slate-400">
           Your cloud engineering journey starts today. Complete each lesson and quiz to unlock the next module.
+          Enjoy learning.
         </p>
       </div>
     </div>
