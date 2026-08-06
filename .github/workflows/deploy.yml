@@ -5,15 +5,18 @@ on:
     branches:
       - main
 
+
 jobs:
   deploy:
 
     runs-on: ubuntu-latest
 
+
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v4
+
 
 
       - name: Deploy to EC2
@@ -27,18 +30,45 @@ jobs:
 
           key: ${{ secrets.EC2_SSH_KEY }}
 
+
           script: |
+
+            set -e
+
 
             cd ~/cloud_academy/frontend
 
-            git pull origin main
+
+            echo "Updating repository..."
+
+            git fetch origin main
+
+            git reset --hard origin/main
+
+
+            echo "Installing dependencies..."
 
             npm ci
 
+
+            echo "Building application..."
+
             npm run build
+
+
+            echo "Deploying files to nginx..."
+
 
             sudo rm -rf /usr/share/nginx/html/*
 
+
             sudo cp -r dist/* /usr/share/nginx/html/
 
+
+            echo "Restarting nginx..."
+
+
             sudo systemctl restart nginx
+
+
+            echo "Deployment completed successfully."
