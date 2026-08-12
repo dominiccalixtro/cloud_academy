@@ -1,9 +1,12 @@
-import { curriculum } from "../../bootcamp/data/curriculum";
+import {
+  getAllLessons as getStoredLessons,
+  getLessonById as findLessonById,
+} from "../../bootcamp/services/course.repository";
 
 export function getAllLessons() {
-  return curriculum.flatMap((module) => module.lessons);
+  return getStoredLessons();
 }
 
 export function getLessonById(id: string) {
-  return getAllLessons().find((lesson) => lesson.id === id);
+  return findLessonById(id);
 }

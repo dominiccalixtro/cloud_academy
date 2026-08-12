@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 
 import { QuestionCard } from "../components/QuestionCard";
 
+import { getQuizById } from "../services/quiz.repository";
+
 import {
   calculateScore,
   saveQuizResult,
@@ -10,49 +12,15 @@ import {
 
 
 
-function getQuizzes() {
-
-  const data =
-    localStorage.getItem(
-      "cloud-academy-quizzes"
-    );
-
-
-  if (!data) {
-
-    return [];
-
-  }
-
-
-  return JSON.parse(data);
-
-}
-
-
-
-
-
-
 export function QuizPage() {
 
-
-  const { quizId } =
-    useParams();
-
-
-
-  const quizzes =
-    getQuizzes();
+  const {
+    quizId,
+  } = useParams();
 
 
 
-  const quiz =
-    quizzes.find(
-      (item:any)=>
-        item.id === quizId
-    );
-
+  const quiz = getQuizById(quizId ?? "");
 
 
 
@@ -90,7 +58,6 @@ export function QuizPage() {
 
 
 
-
   if (!quiz) {
 
     return (
@@ -112,11 +79,9 @@ export function QuizPage() {
 
 
 
-
   function selectAnswer(
-    answer:number
+    answer: number
   ) {
-
 
     const updated =
       [
@@ -142,8 +107,15 @@ export function QuizPage() {
 
 
 
-
   function submitQuiz() {
+
+
+    if (!quiz) {
+
+      return;
+
+    }
+
 
 
     const result =
@@ -155,7 +127,7 @@ export function QuizPage() {
 
 
     saveQuizResult(
-      quiz.id,
+      quiz,
       result
     );
 
@@ -174,6 +146,7 @@ export function QuizPage() {
     );
 
 
+
     setFinished(
       true
     );
@@ -186,10 +159,7 @@ export function QuizPage() {
 
 
 
-
-
   if (finished) {
-
 
     return (
 
@@ -200,8 +170,8 @@ export function QuizPage() {
 
         <h1
           className="
-          text-4xl
-          font-bold
+            text-4xl
+            font-bold
           "
         >
 
@@ -215,20 +185,20 @@ export function QuizPage() {
 
         <div
           className="
-          rounded-2xl
-          border
-          border-slate-800
-          bg-slate-900
-          p-6
+            rounded-2xl
+            border
+            border-slate-800
+            bg-slate-900
+            p-6
           "
         >
 
 
           <p
             className="
-            text-5xl
-            font-bold
-            text-orange-400
+              text-5xl
+              font-bold
+              text-orange-400
             "
           >
 
@@ -242,8 +212,8 @@ export function QuizPage() {
 
           <p
             className="
-            mt-4
-            text-slate-400
+              mt-4
+              text-slate-400
             "
           >
 
@@ -264,13 +234,13 @@ export function QuizPage() {
           to={`/lesson/${quiz.id}`}
 
           className="
-          inline-block
-          rounded-lg
-          bg-orange-500
-          px-5
-          py-3
-          font-medium
-          text-slate-950
+            inline-block
+            rounded-lg
+            bg-orange-500
+            px-5
+            py-3
+            font-medium
+            text-slate-950
           "
 
         >
@@ -321,7 +291,7 @@ export function QuizPage() {
 
         <p
           className="
-          text-orange-400
+            text-orange-400
           "
         >
 
@@ -335,9 +305,9 @@ export function QuizPage() {
 
         <h1
           className="
-          mt-2
-          text-4xl
-          font-bold
+            mt-2
+            text-4xl
+            font-bold
           "
         >
 
@@ -347,7 +317,6 @@ export function QuizPage() {
 
 
       </div>
-
 
 
 
@@ -377,11 +346,10 @@ export function QuizPage() {
 
 
 
-
       <div
         className="
-        flex
-        justify-between
+          flex
+          justify-between
         "
       >
 
@@ -394,19 +362,20 @@ export function QuizPage() {
           }
 
 
-          onClick={()=>
+          onClick={() =>
             setCurrentQuestion(
-              value=>value-1
+              value =>
+                value - 1
             )
           }
 
 
           className="
-          rounded-lg
-          bg-slate-800
-          px-5
-          py-3
-          disabled:opacity-40
+            rounded-lg
+            bg-slate-800
+            px-5
+            py-3
+            disabled:opacity-40
           "
 
         >
@@ -414,7 +383,6 @@ export function QuizPage() {
           Previous
 
         </button>
-
 
 
 
@@ -434,12 +402,12 @@ export function QuizPage() {
 
 
               className="
-              rounded-lg
-              bg-orange-500
-              px-5
-              py-3
-              font-medium
-              text-slate-950
+                rounded-lg
+                bg-orange-500
+                px-5
+                py-3
+                font-medium
+                text-slate-950
               "
 
             >
@@ -456,20 +424,21 @@ export function QuizPage() {
 
             <button
 
-              onClick={()=>
+              onClick={() =>
                 setCurrentQuestion(
-                  value=>value+1
+                  value =>
+                    value + 1
                 )
               }
 
 
               className="
-              rounded-lg
-              bg-orange-500
-              px-5
-              py-3
-              font-medium
-              text-slate-950
+                rounded-lg
+                bg-orange-500
+                px-5
+                py-3
+                font-medium
+                text-slate-950
               "
 
             >
@@ -490,6 +459,5 @@ export function QuizPage() {
     </div>
 
   );
-
 
 }

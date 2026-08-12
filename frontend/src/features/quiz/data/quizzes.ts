@@ -135,4 +135,77 @@ export const quizzes: Quiz[] = [
       },
     ],
   },
+
+  {
+  id: "day-4",
+  title: "Git & GitHub Fundamentals Quiz",
+  description:
+    "Test your understanding of Git, repositories, commits, branches, and GitHub workflows.",
+  questions: [
+    {
+      id: "q1",
+      question:
+        "What is Git?",
+      options: [
+        "A distributed version control system",
+        "A cloud storage platform",
+        "A programming language",
+        "A database system",
+      ],
+      answer: 0,
+    },
+
+    {
+      id: "q2",
+      question:
+        "Which command stages files before committing?",
+      options: [
+        "git push",
+        "git add",
+        "git clone",
+        "git merge",
+      ],
+      answer: 1,
+    },
+
+    {
+      id: "q3",
+      question:
+        "What is the purpose of a Git branch?",
+      options: [
+        "Delete repository history",
+        "Create an isolated workspace for changes",
+        "Upload files to GitHub",
+        "Install Git",
+      ],
+      answer: 1,
+    },
+
+    {
+      id: "q4",
+      question:
+        "Which command uploads local commits to GitHub?",
+      options: [
+        "git pull",
+        "git init",
+        "git push",
+        "git status",
+      ],
+      answer: 2,
+    },
+
+    {
+      id: "q5",
+      question:
+        "What is a Pull Request used for?",
+      options: [
+        "Review and merge code changes",
+        "Delete branches",
+        "Install dependencies",
+        "Create local repositories",
+      ],
+      answer: 0,
+    },
+  ],
+},
 ];

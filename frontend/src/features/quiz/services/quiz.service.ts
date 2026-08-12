@@ -1,10 +1,18 @@
-import type { Quiz } from "../types";
+import type {
+  Quiz,
+} from "../types";
+import { getQuizzes } from "./quiz.repository";
 
-import { quizzes } from "../data/quizzes";
 
 import {
   getCurrentUser,
 } from "../../auth/services/auth.service";
+
+
+import {
+  addNotification,
+} from "../../notifications/services/notification.service";
+
 
 
 function getStorageKey() {
@@ -13,9 +21,13 @@ function getStorageKey() {
     getCurrentUser();
 
 
+
   if (!user) {
+
     return "cloud-academy-quiz-results";
+
   }
+
 
 
   return `cloud-academy-quiz-results-${user.id}`;
@@ -24,9 +36,15 @@ function getStorageKey() {
 
 
 
+
+
 interface QuizResults {
+
   [quizId: string]: number;
+
 }
+
+
 
 
 
@@ -38,14 +56,20 @@ function getResults(): QuizResults {
     );
 
 
+
   if (!data) {
+
     return {};
+
   }
+
 
 
   return JSON.parse(data);
 
 }
+
+
 
 
 
@@ -57,18 +81,25 @@ export function calculateScore(
   let score = 0;
 
 
+
   quiz.questions.forEach(
     (question, index) => {
+
 
       if (
         question.answer ===
         answers[index]
       ) {
+
         score++;
+
       }
 
+
     }
+
   );
+
 
 
   return score;
@@ -77,8 +108,10 @@ export function calculateScore(
 
 
 
+
+
 export function saveQuizResult(
-  quizId: string,
+  quiz: Quiz,
   score: number
 ) {
 
@@ -86,7 +119,9 @@ export function saveQuizResult(
     getResults();
 
 
-  results[quizId] = score;
+
+  results[quiz.id] = score;
+
 
 
   localStorage.setItem(
@@ -94,7 +129,45 @@ export function saveQuizResult(
     JSON.stringify(results)
   );
 
+
+
+  const percentage =
+    Math.round(
+      (score / quiz.questions.length) * 100
+    );
+
+
+
+  addNotification({
+
+    id:
+      crypto.randomUUID(),
+
+
+    title:
+      "Quiz Graded",
+
+
+    message:
+      `${quiz.title}: ${score}/${quiz.questions.length} (${percentage}%)`,
+
+
+    type:
+      "quiz",
+
+
+    read:
+      false,
+
+
+    createdAt:
+      new Date().toISOString(),
+
+  });
+
 }
+
+
 
 
 
@@ -106,9 +179,12 @@ export function getQuizResult(
     getResults();
 
 
+
   return results[quizId];
 
 }
+
+
 
 
 
@@ -124,10 +200,12 @@ export function isQuizCompleted(
 
 
 
+
+
 export function getQuizProgress() {
 
-  const total =
-    quizzes.length;
+  const total = getQuizzes().length;
+
 
 
   const completed =
@@ -136,16 +214,23 @@ export function getQuizProgress() {
     ).length;
 
 
+
   return {
 
     total,
 
+
     completed,
 
+
     percentage:
+
       total === 0
+
         ? 0
+
         :
+
         Math.round(
           (completed / total) * 100
         ),

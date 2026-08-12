@@ -4,7 +4,7 @@ import { useAuth } from "../../auth/context/AuthContext";
 
 import { getCourses } from "../services/course.service";
 
-import { quizzes } from "../../quiz/data/quizzes";
+import { getQuizzes } from "../../quiz/services/quiz.repository";
 
 import { users } from "../../auth/data/users";
 
@@ -22,6 +22,8 @@ export function InstructorDashboard() {
 
   const courses =
     getCourses();
+
+  const quizzes = getQuizzes();
 
 
 

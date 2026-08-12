@@ -17,6 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Verify frontend
+        run: |
+          npm ci
+          npm run lint
+          npm run test
+          npm run build
+
 
 
       - name: Deploy to EC2
@@ -36,7 +43,7 @@ jobs:
             set -e
 
 
-            cd ~/cloud_academy/frontend
+            cd ~/cloud_academy
 
 
             echo "Updating repository..."
@@ -62,7 +69,7 @@ jobs:
             sudo rm -rf /usr/share/nginx/html/*
 
 
-            sudo cp -r dist/* /usr/share/nginx/html/
+            sudo cp -r frontend/dist/* /usr/share/nginx/html/
 
 
             echo "Restarting nginx..."

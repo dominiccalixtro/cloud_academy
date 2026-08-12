@@ -1,4 +1,4 @@
-import { curriculum } from "../../bootcamp/data/curriculum";
+import { getAllLessons } from "../../bootcamp/services/course.repository";
 import { getCurrentUser } from "../../auth/services/auth.service";
 
 
@@ -107,11 +107,7 @@ export function clearProgress() {
 
 export function getProgress() {
 
-  const lessons =
-    curriculum.flatMap(
-      (module) =>
-        module.lessons
-    );
+  const lessons = getAllLessons();
 
 
   const total =
@@ -158,11 +154,7 @@ export function getLessonStatus(
 
 export function getNextLesson() {
 
-  const lessons =
-    curriculum.flatMap(
-      (module) =>
-        module.lessons
-    );
+  const lessons = getAllLessons();
 
 
   const completed =

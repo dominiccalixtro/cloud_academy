@@ -1,32 +1,35 @@
-# React + TypeScript + Vite
+# Cloud Academy frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The frontend is a React 19, TypeScript, Vite, and Tailwind CSS application.
 
-Currently, two official plugins are available:
+## Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```text
+src/
+  features/      Domain modules with pages, components, data, services, and types
+  layouts/       Shared application shells
+  shared/        Cross-feature navigation and theme UI
+  lib/           Shared utilities
+  styles/        Global tokens and styles
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Course and quiz seed data lives in `features/*/data`. At runtime, typed repositories initialise browser local storage from that seed data. Both instructor management and student experiences use the same repositories, so local edits are reflected across the app.
+
+## Local development
+
+From the repository root, run:
+
+```bash
+npm install
+npm run dev
+```
+
+The demo users are defined in `src/features/auth/data/users.ts`. This is a browser-only prototype: data is scoped to a browser profile and is not shared or secured by a backend.
+
+## Quality checks
+
+```bash
+npm run lint
+npm run test
+npm run build
+```

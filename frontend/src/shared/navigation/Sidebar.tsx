@@ -15,14 +15,11 @@ import { NavigationItem } from "./NavigationItem";
 import { useAuth } from "../../features/auth/context/AuthContext";
 
 
-
 interface Navigation {
   label: string;
   icon: LucideIcon;
   href: string;
 }
-
-
 
 
 
@@ -56,10 +53,6 @@ const studentNavigation: Navigation[] = [
 
 
 
-
-
-
-
 const instructorNavigation: Navigation[] = [
 
   {
@@ -68,13 +61,11 @@ const instructorNavigation: Navigation[] = [
     href: "/dashboard",
   },
 
-
   {
     label: "Courses",
     icon: BookMarked,
     href: "/course-management",
   },
-
 
   {
     label: "Quizzes",
@@ -82,13 +73,11 @@ const instructorNavigation: Navigation[] = [
     href: "/quiz-management",
   },
 
-
   {
     label: "Students",
     icon: Users,
     href: "/student-management",
   },
-
 
   {
     label: "Profile",
@@ -100,13 +89,7 @@ const instructorNavigation: Navigation[] = [
 
 
 
-
-
-
-
-
 export function Sidebar() {
-
 
   const {
     user,
@@ -116,14 +99,9 @@ export function Sidebar() {
 
 
   const navigation =
-
     user?.role === "instructor"
-
       ? instructorNavigation
-
       : studentNavigation;
-
-
 
 
 
@@ -140,10 +118,9 @@ export function Sidebar() {
         flex-col
         border-r
         border-slate-800
-        bg-slate-900
+        bg-slate-950
       "
     >
-
 
 
       {/* Logo */}
@@ -174,7 +151,7 @@ export function Sidebar() {
             text-xs
             uppercase
             tracking-widest
-            text-slate-500
+            text-slate-400
           "
         >
           Learn • Build • Deploy
@@ -182,10 +159,6 @@ export function Sidebar() {
 
 
       </div>
-
-
-
-
 
 
 
@@ -207,7 +180,7 @@ export function Sidebar() {
         >
 
           {
-            navigation.map((item)=>(
+            navigation.map((item) => (
 
               <NavigationItem
 
@@ -229,10 +202,6 @@ export function Sidebar() {
 
 
       </nav>
-
-
-
-
 
 
 
@@ -275,8 +244,6 @@ export function Sidebar() {
 
 
       </div>
-
-
 
 
     </aside>

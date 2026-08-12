@@ -1,5 +1,5 @@
-import { curriculum } from "../data/curriculum";
 import { LessonCard } from "../components/LessonCard";
+import { getCourses } from "../services/course.repository";
 
 import {
   getProgress,
@@ -10,6 +10,7 @@ import {
 } from "../../quiz/services/quiz.service";
 
 export function BootcampPage() {
+  const courses = getCourses();
   const progress = getProgress();
 
   const quizProgress =
@@ -81,7 +82,7 @@ export function BootcampPage() {
 
 
       {/* Modules */}
-      {curriculum.map((module) => (
+      {courses.map((module) => (
         <section
           key={module.id}
           className="space-y-6"
@@ -110,3 +111,4 @@ export function BootcampPage() {
     </div>
   );
 }
+

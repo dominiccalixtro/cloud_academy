@@ -72,6 +72,30 @@ export const curriculum: Module[] = [
           "/course-content/day-3/lesson.pptx",
         status: "available",
       },
+
+      {
+        id: "day-4",
+        week: 1,
+        day: 4,
+        title: "Git & GitHub Fundamentals",
+        duration: "3 Hours",
+        description:
+          "Learn version control fundamentals using Git, manage repositories, create commits and branches, collaborate using GitHub, and understand modern development workflows.",
+        objectives: [
+          "Understand version control and why Git exists",
+          "Create repositories and manage commits",
+          "Understand Git staging and workflow",
+          "Create and merge branches",
+          "Resolve basic merge conflicts",
+          "Use GitHub repositories with push, pull, and clone",
+          "Understand pull requests and team collaboration",
+        ],
+        presentation:
+          "/course-content/day-4/lesson.pdf",
+        powerpoint:
+          "/course-content/day-4/lesson.pptx",
+        status: "available",
+      },
     ],
   },
 ];
