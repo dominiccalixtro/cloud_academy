@@ -25,7 +25,7 @@ export function BootcampPage() {
         </h1>
 
         <p className="mt-2 text-slate-400">
-          Follow the learning path from Cloud Fundamentals to AWS.
+          Learning path from Cloud Fundamentals to AWS.
         </p>
       </div>
 
