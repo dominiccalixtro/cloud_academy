@@ -14,6 +14,8 @@ export interface Lesson {
 
     description: string;
 
+    difficulty?: "Beginner" | "Intermediate" | "Advanced";
+
     objectives: string[];
 
     presentation: string;

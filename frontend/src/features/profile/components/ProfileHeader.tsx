@@ -17,6 +17,8 @@ export function ProfileHeader() {
   }
 
 
+  const avatarIsImage = typeof user.avatar === "string" && user.avatar.includes(".");
+
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
 
@@ -30,14 +32,25 @@ export function ProfileHeader() {
             w-20
             items-center
             justify-center
+            overflow-hidden
             rounded-full
+            border-2
+            border-orange-500/60
             bg-orange-500
             text-3xl
             font-bold
             text-slate-950
           "
         >
-          {user.avatar}
+          {avatarIsImage ? (
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            user.avatar
+          )}
         </div>
 
 

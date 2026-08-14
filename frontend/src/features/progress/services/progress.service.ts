@@ -1,6 +1,6 @@
 import { getAllLessons } from "../../bootcamp/services/course.repository";
 import { getCurrentUser } from "../../auth/services/auth.service";
-
+import { addNotification } from "../../notifications/services/notification.service";
 
 function getStorageKey() {
 
@@ -65,32 +65,42 @@ export function isLessonCompleted(
 
 
 
-export function toggleLessonCompletion(
-  id: string
-) {
-
-  const completed =
-    getStoredLessons();
-
+export function toggleLessonCompletion(id: string) {
+  const completed = getStoredLessons();
 
   if (completed.includes(id)) {
-
-    saveLessons(
-      completed.filter(
-        (lessonId) =>
-          lessonId !== id
-      )
-    );
-
-
-  } else {
-
-    completed.push(id);
-
-    saveLessons(completed);
-
+    saveLessons(completed.filter((lessonId) => lessonId !== id));
+    return;
   }
 
+  completed.push(id);
+  saveLessons(completed);
+
+  const lesson = getAllLessons().find((item) => item.id === id);
+
+  if (!lesson) {
+    return;
+  }
+
+  addNotification({
+    id: crypto.randomUUID(),
+    title: "Lesson Completed",
+    message: `You completed ${lesson.title}.`,
+    type: "lesson",
+    read: false,
+    createdAt: new Date().toISOString(),
+  });
+
+  addNotification({
+    id: crypto.randomUUID(),
+    title: "Quiz Available",
+    message: `The quiz for ${lesson.title} is now available.`,
+    type: "quiz",
+    read: false,
+    createdAt: new Date().toISOString(),
+  });
+
+  window.dispatchEvent(new Event("lessonCompleted"));
 }
 
 

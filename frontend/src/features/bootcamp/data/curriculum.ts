@@ -1,5 +1,8 @@
 import type { Module } from "../types";
 
+const s3BaseUrl =
+  "https://cloud-academy-content-042972420563-ap-southeast-1-an.s3.ap-southeast-1.amazonaws.com";
+
 export const curriculum: Module[] = [
   {
     id: "module-1",
@@ -15,6 +18,7 @@ export const curriculum: Module[] = [
         duration: "2-3 Hours",
         description:
           "Learn how computers communicate, how the Internet works, what servers are, and how cloud computing changed modern IT.",
+        difficulty: "Beginner",
         objectives: [
           "Understand how computers work",
           "Explain how the Internet works",
@@ -22,9 +26,9 @@ export const curriculum: Module[] = [
           "Understand cloud computing concepts",
         ],
         presentation:
-          "/course-content/day-1/lesson.pdf",
+          `${s3BaseUrl}/course-content/week-1/day-1/lesson.pdf`,
         powerpoint:
-          "/course-content/day-1/lesson.pptx",
+          `${s3BaseUrl}/course-content/week-1/day-1/lesson.pptx`,
         status: "available",
       },
 
@@ -36,6 +40,7 @@ export const curriculum: Module[] = [
         duration: "3 Hours",
         description:
           "Learn Linux commands, file systems, permissions, processes, and SSH fundamentals.",
+        difficulty: "Beginner",
         objectives: [
           "Navigate the Linux filesystem",
           "Understand file permissions",
@@ -43,9 +48,9 @@ export const curriculum: Module[] = [
           "Connect using SSH",
         ],
         presentation:
-          "/course-content/day-2/lesson.pdf",
+          `${s3BaseUrl}/course-content/week-1/day-2/lesson.pdf`,
         powerpoint:
-          "/course-content/day-2/lesson.pptx",
+          `${s3BaseUrl}/course-content/week-1/day-2/lesson.pptx`,
         status: "available",
       },
 
@@ -57,6 +62,7 @@ export const curriculum: Module[] = [
         duration: "3 Hours",
         description:
           "Learn networking fundamentals including the OSI Model, TCP/IP, subnetting, routing, DNS, and AWS networking concepts.",
+        difficulty: "Beginner",
         objectives: [
           "Understand computer networking",
           "Explain the OSI Model",
@@ -67,9 +73,9 @@ export const curriculum: Module[] = [
           "Understand routing",
         ],
         presentation:
-          "/course-content/day-3/lesson.pdf",
+          `${s3BaseUrl}/course-content/week-1/day-3/lesson.pdf`,
         powerpoint:
-          "/course-content/day-3/lesson.pptx",
+          `${s3BaseUrl}/course-content/week-1/day-3/lesson.pptx`,
         status: "available",
       },
 
@@ -81,6 +87,7 @@ export const curriculum: Module[] = [
         duration: "3 Hours",
         description:
           "Learn version control fundamentals using Git, manage repositories, create commits and branches, collaborate using GitHub, and understand modern development workflows.",
+        difficulty: "Beginner",
         objectives: [
           "Understand version control and why Git exists",
           "Create repositories and manage commits",
@@ -91,9 +98,9 @@ export const curriculum: Module[] = [
           "Understand pull requests and team collaboration",
         ],
         presentation:
-          "/course-content/day-4/lesson.pdf",
+          `${s3BaseUrl}/course-content/week-1/day-4/lesson.pdf`,
         powerpoint:
-          "/course-content/day-4/lesson.pptx",
+          `${s3BaseUrl}/course-content/week-1/day-4/lesson.pptx`,
         status: "available",
       },
     ],

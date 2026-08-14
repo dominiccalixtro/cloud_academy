@@ -22,4 +22,25 @@ describe("quizRepository", () => {
     expect(quizRepository.getAll()).toHaveLength(seededCount + 1);
     expect(quizRepository.getById(quiz.id)).toEqual(quiz);
   });
+
+  it("persists question edits in an existing quiz", () => {
+    const [quiz] = quizRepository.getAll();
+
+    const updatedQuiz: Quiz = {
+      ...quiz,
+      title: "Updated quiz title",
+      questions: [
+        {
+          id: "question-1",
+          question: "Edited question",
+          options: ["A", "B", "C", "D"],
+          answer: 1,
+        },
+      ],
+    };
+
+    quizRepository.update(updatedQuiz);
+
+    expect(quizRepository.getById(quiz.id)).toEqual(updatedQuiz);
+  });
 });

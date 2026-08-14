@@ -139,30 +139,12 @@ export function saveQuizResult(
 
 
   addNotification({
-
-    id:
-      crypto.randomUUID(),
-
-
-    title:
-      "Quiz Graded",
-
-
-    message:
-      `${quiz.title}: ${score}/${quiz.questions.length} (${percentage}%)`,
-
-
-    type:
-      "quiz",
-
-
-    read:
-      false,
-
-
-    createdAt:
-      new Date().toISOString(),
-
+    id: crypto.randomUUID(),
+    title: "Quiz Completed",
+    message: `${quiz.title}: ${score}/${quiz.questions.length} (${percentage}%)`,
+    type: "quiz",
+    read: false,
+    createdAt: new Date().toISOString(),
   });
 
 }

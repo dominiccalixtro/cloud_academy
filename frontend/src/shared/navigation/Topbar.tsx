@@ -1,6 +1,7 @@
 import {
   Search,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { useAuth } from "../../features/auth/context/AuthContext";
 
@@ -43,7 +44,7 @@ export function Topbar() {
             text-orange-400
           "
         >
-          Cloud Academy
+          DC Cloud Academy
         </h2>
 
       </div>
@@ -91,7 +92,8 @@ export function Topbar() {
 
         {user && (
 
-          <div
+          <Link
+            to="/profile"
             className="
               flex
               items-center
@@ -102,6 +104,9 @@ export function Topbar() {
               bg-slate-950
               px-3
               py-2
+              transition
+              hover:border-slate-700
+              hover:bg-slate-900
             "
           >
 
@@ -113,13 +118,24 @@ export function Topbar() {
                 w-9
                 items-center
                 justify-center
+                overflow-hidden
                 rounded-full
-                bg-orange-500
+                border
+                border-slate-600
+                bg-slate-800
                 font-semibold
                 text-slate-900
               "
             >
-              {user.avatar}
+              {typeof user.avatar === "string" && user.avatar.includes(".") ? (
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                user.avatar
+              )}
             </div>
 
 
@@ -152,7 +168,7 @@ export function Topbar() {
             </div>
 
 
-          </div>
+          </Link>
 
         )}
 

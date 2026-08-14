@@ -7,6 +7,7 @@ import {
   BookMarked,
   ClipboardList,
   Users,
+  UserCircle2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -41,6 +42,12 @@ const studentNavigation: Navigation[] = [
     label: "Resources",
     icon: BookOpen,
     href: "/resources",
+  },
+
+  {
+    label: "Instructor",
+    icon: UserCircle2,
+    href: "/instructor",
   },
 
   {
@@ -141,7 +148,7 @@ export function Sidebar() {
             text-orange-400
           "
         >
-          Cloud Academy
+          DC Cloud Academy
         </h1>
 
 

@@ -16,6 +16,7 @@ import { LessonPage } from "./features/lesson/pages/LessonPage";
 import { QuizPage } from "./features/quiz/pages/QuizPage";
 import { ProfilePage } from "./features/profile/pages/ProfilePage";
 import { ResourcesPage } from "./features/resources/pages/ResourcesPage";
+import { InstructorPage } from "./features/instructor/pages/InstructorPage";
 
 
 // Auth
@@ -185,8 +186,17 @@ function App() {
 
 
 
+          <Route
 
+            path="instructor"
 
+            element={
+
+              <InstructorPage />
+
+            }
+
+          />
 
 
 

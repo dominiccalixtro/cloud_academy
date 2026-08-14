@@ -1,90 +1,57 @@
-import type {
-  Notification,
-} from "../types/notification.types";
+import { getCurrentUser } from "../../auth/services/auth.service";
+import type { Notification } from "../types/notification.types";
 
+const STORAGE_KEY = "cloud-academy-notifications";
 
-const STORAGE_KEY =
-  "cloud-academy-notifications";
+function getStudentStorageKey() {
+  const currentUser = getCurrentUser();
 
-
-
-export function getNotifications(): Notification[] {
-
-  const data =
-    localStorage.getItem(
-      STORAGE_KEY
-    );
-
-
-  if (!data) {
-
-    return [];
-
+  if (currentUser && currentUser.role === "student") {
+    return `${STORAGE_KEY}-${currentUser.id}`;
   }
 
-
-  return JSON.parse(data);
-
+  return `${STORAGE_KEY}-student`;
 }
 
+export function getNotifications(): Notification[] {
+  const data = localStorage.getItem(getStudentStorageKey());
 
+  if (!data) {
+    return [];
+  }
 
-
-
-export function addNotification(
-  notification: Notification
-) {
-
-  const notifications =
-    getNotifications();
-
-
-
-  notifications.unshift(
-    notification
-  );
-
-
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(
-      notifications
-    )
-  );
-
+  try {
+    return JSON.parse(data) as Notification[];
+  } catch {
+    return [];
+  }
 }
 
+export function addNotification(notification: Notification) {
+  const notifications = getNotifications();
+  notifications.unshift(notification);
 
+  localStorage.setItem(getStudentStorageKey(), JSON.stringify(notifications));
 
+  window.dispatchEvent(new Event("notificationsUpdated"));
 
+  if (notification.type === "lesson") {
+    window.dispatchEvent(new Event("lessonCreated"));
+  }
+
+  if (notification.type === "quiz") {
+    window.dispatchEvent(new Event("quizCompleted"));
+  }
+}
 
 export function markNotificationsAsRead() {
+  const notifications = getNotifications();
 
-  const notifications =
-    getNotifications();
+  const updated = notifications.map((notification) => ({
+    ...notification,
+    read: true,
+  }));
 
-
-
-  const updated =
-    notifications.map(
-      notification => ({
-
-        ...notification,
-
-        read: true,
-
-      })
-    );
-
-
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(
-      updated
-    )
-  );
-
-
+  localStorage.setItem(getStudentStorageKey(), JSON.stringify(updated));
+  window.dispatchEvent(new Event("notificationsUpdated"));
 }
